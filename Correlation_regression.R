@@ -42,9 +42,8 @@ test_data[1]
 
 
 
-# regresja ----------------------------------------------------------------
-
-data <- read.csv("D:/Programowanie/R_projekty/Stepik/dataset_11508_12.txt", sep = "", head = F, dec = '.')
+# regression ----------------------------------------------------------------
+data <- read.csv()
 fit  <- lm(data[[1]] ~ data[[2]], data)
 summary(fit)
 
@@ -72,9 +71,9 @@ my_plot <- ggplot(iris, aes(Sepal.Width, Petal.Width, col = Species))+
 
 
 
-# MNK ---------------------------------------------------------------------
+# OLS ---------------------------------------------------------------------
 
-test_data <- read.csv("https://stepic.org/media/attachments/course/129/fill_na_test.csv")
+test_data <- read.csv()
 fill_na <- function(x){
   fit <- lm(x[,3]~x[,1]+x[,2], data = x)
   x$y_full <- ifelse(is.na(x[,3]), predict(fit, x), x[,3])
