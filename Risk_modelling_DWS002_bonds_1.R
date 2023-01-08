@@ -89,7 +89,7 @@ abline(a=0,b=1, lwd=2)
 require(MASS)
 
 d0 <- fitdistr(R0, "normal")
-d0$loglik #im wiêksza, tym lepsze dopasowanie
+d0$loglik #im wiÃªksza, tym lepsze dopasowanie
 
 d1 <- fitdistr(R0, "t", m = 0, start = list(s=sqrt((v0-2)/v0), df=v0), lower=c(0.001,3))
 d1$loglik  
@@ -102,12 +102,12 @@ v=d1$estimate[[2]]
 
 # c) ----------------------------------------------------------------------
 
-GARCHspec <- ugarchspec(mean.model=list(armaOrder=c(0,0), include.mean=TRUE),        #specyfikacja modelu, #armaOrder = ¿adnych opóŸnieñ, #include.mean = œrednie stopy, sGARCH = standardowy
+GARCHspec <- ugarchspec(mean.model=list(armaOrder=c(0,0), include.mean=TRUE),        #specyfikacja modelu, #armaOrder = Â¿adnych opÃ³Å¸nieÃ±, #include.mean = Å“rednie stopy, sGARCH = standardowy
                         variance.model=list(model="sGARCH", garchOrder=c(1,1)),
-                        fixed.pars=list(shape=5), distribution.model = "std")   #zak³adany rozk³ad
+                        fixed.pars=list(shape=5), distribution.model = "std")   #zakÂ³adany rozkÂ³ad
 #                        distribution.model = "norm")
 
-GARCHfit <- ugarchfit(data = r, spec = GARCHspec, solver="solnp")   #estymacja modelu (dopasowanie), problem zbie¿noœci --> zmieniamy solver
+GARCHfit <- ugarchfit(data = r, spec = GARCHspec, solver="solnp")   #estymacja modelu (dopasowanie), problem zbieÂ¿noÅ“ci --> zmieniamy solver
 round(coef(GARCHfit),5)
 
 omega<-coef(GARCHfit)[2]
@@ -131,14 +131,13 @@ legend("bottomright", c("VaR", "ES"), lty=1, col=2:3)
 
 
 # d) ----------------------------------------------------------------------
-source("MRFzR_FunkcjeBlok1.R")
 p<-0.01 #lub 0.05
 c(VaRhist(R,p)$VaR, VaRnorm(R,p)$VaR, VaRt(R,p,v1)$VaR, VaRCF(R,p)$VaR, VaREWMA(R,p)$VaR, VaRGARCH(R,p)$VaR)*100
 c(VaRhist(R,p)$ES, VaRnorm(R,p)$ES, VaRt(R,p,v1)$ES, VaRCF(R,p)$ES, VaREWMA(R,p)$ES, VaRGARCH(R,p)$ES)*100
-#sprawdziæ VaR_EWMA dla 0,05
-#sprawdziæ ES_GARCH dla 0,05
+#sprawdziÃ¦ VaR_EWMA dla 0,05
+#sprawdziÃ¦ ES_GARCH dla 0,05
 # e) ----------------------------------------------------------------------
-# Funkcje i wykres VaR dla ró¿nych p  #
+# Funkcje i wykres VaR dla rÃ³Â¿nych p  #
 #######################################
 TabelaP = matrix(NA,100,7)
 for(p in seq(0.001,0.1,0.001)){
