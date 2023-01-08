@@ -1,4 +1,4 @@
-# Wartoœæ VAR dla 140-dniowego okresu -------------------------------------
+# WartoÅ“Ã¦ VAR dla 140-dniowego okresu -------------------------------------
 source("MRFzR_FunkcjeBlok2.R")
 source("LoadFundData.R")
 require(zoo)
@@ -27,7 +27,7 @@ q         <- 0.1
 
 ############################################################################################
 # podpunkt 1
-# Metoda square root of time dla rozk³adu normalnego     #
+# Metoda square root of time dla rozkÂ³adu normalnego     #
 ############################################################################################
 mH  <- m*H
 sH  <- s*sqrt(H)
@@ -227,7 +227,7 @@ legend("bottomleft", c("Square root of time","Rozszerzenie CF","MC z GARCH","S-V
 #           Standardowy scenariusz hipotetyczny              #
 ##############################################################
 
-# Sklad portfela (Investor Obligacji - min 70% portfelu jest inwestowany w d³u¿ne papiery wartoœciowe, emitowane przez Skarb Pañstwa)
+# Sklad portfela (Investor Obligacji - min 70% portfelu jest inwestowany w dÂ³uÂ¿ne papiery wartoÅ“ciowe, emitowane przez Skarb PaÃ±stwa)
 A1 = 0           # akcje krajowe
 A2 = 0           # akcje zagraniczne
 A3 = 0.7         # obligacje skarbowe, 5-letnie; Duracja portfelu - 5,04 - przyjmujemy jako 5 letnie. 
@@ -236,18 +236,18 @@ A5 = 0           # surowce
 A = c(A1,A2,A3,A4,A5)
 
 # Etap 1: analiza wrazliwosci wzgledem czynnikow ryzyka
-# Super important! To s¹ reakcje portfelu na 1-procentow¹ zmianê czynnika
+# Super important! To sÂ¹ reakcje portfelu na 1-procentowÂ¹ zmianÃª czynnika
 
 RF1 = sum(c(0, 0, 0, 0, 1)*A)    # procentowa reakcja na wzrost cen surowcow o 1%
 RF2 = sum(c(1, 1, 0, 0, 0)*A)    # procentowa reackja na 1% wzrost indeksow gieldowych (w kraju i zagranica), czyli wzrost cen akcji 
 RF3 = sum(c(0, 0,-5,-1, 0)*A)    # procentowa reakcja na wzrost krzywej dochodowosci na calej dlugosci o 100 pb.
-#mozliwoœæ zmiany z -1 na -3 ze wzglêdu na okres obligacji korporacyjnych 
-#mo¿liwoœæ zmiany z -5 do -3 ze wzglêdu na okres obligacje skarbowych 
+#mozliwoÅ“Ã¦ zmiany z -1 na -3 ze wzglÃªdu na okres obligacji korporacyjnych 
+#moÂ¿liwoÅ“Ã¦ zmiany z -5 do -3 ze wzglÃªdu na okres obligacje skarbowych 
 
 # Etap 2: analizy scenariuszowe 
-S1 = abs(RF1*50); #wzrost cen surowców o 50%, ale brak zmian cen metali szlachetnych
+S1 = abs(RF1*50); #wzrost cen surowcÃ³w o 50%, ale brak zmian cen metali szlachetnych
 S2 = -abs(RF2*20); #spadek cen akcji o 20%
-S3 = -abs(RF3*2); #przesuniêciu krzywej dochodowoœci na ca³ej d³ugoœci o 2 pkt. proc. do góry 
+S3 = -abs(RF3*2); #przesuniÃªciu krzywej dochodowoÅ“ci na caÂ³ej dÂ³ugoÅ“ci o 2 pkt. proc. do gÃ³ry 
 
 ScHipA <- S1+S2+S3;
 ScHipA                       # hipotetyczny scenariusz skrajny  
@@ -257,9 +257,9 @@ ScHipA                       # hipotetyczny scenariusz skrajny
 ##############################################################
 
 # Przyjmijmy, ze w scenariuszu wybuchnie wojna w Ukrainie:
-# 1. wzrost cen surowców o 50%
+# 1. wzrost cen surowcÃ³w o 50%
 # 2. ucieczka kapitalu z rynkow wschodzacych, w tym PL: deprecjacja PLN o 20%
-# 3. odp³yw kaptalu z rynku obligacji: spadek krzywej doch. o 200 pb na ca³ej d³ugoœci 
+# 3. odpÂ³yw kaptalu z rynku obligacji: spadek krzywej doch. o 200 pb na caÂ³ej dÂ³ugoÅ“ci 
 
 # Wplyw na portfel
 ScHipB <- RF1*(50) + RF2*(-20) + RF3*(2)
@@ -280,12 +280,12 @@ w_length <- 1000                  # szerokosc okna estymacji
 r_backN <- tail(r, backN)
 plot(r_backN, main="stopy zwrotu", xlab="", ylab="") 
 #ostatnie 250 obserwacji wykorzystywane dla backtestungu
-### ostatnie obserwacje naszego szeregu cechuje bardzo wysoka, niezwyczajna dla obligacji zmiennoœæ, która wynika z inflacji
+### ostatnie obserwacje naszego szeregu cechuje bardzo wysoka, niezwyczajna dla obligacji zmiennoÅ“Ã¦, ktÃ³ra wynika z inflacji
 
 #Symulacja historyczna
 varHS <- rollapply(r, width=w_length,
                    function(w){quantile(w,p)},
-                   by=1, align="right") #daty na koñcu okresu
+                   by=1, align="right") #daty na koÃ±cu okresu
 esHS  <- rollapply(r, width=w_length,
                    function(w){mean(w[w < quantile(w,p)])},
                    by=1, align="right")
@@ -300,8 +300,8 @@ nHS  <- sum(etaHS); nHS      # l. przekroczen
 piHS <- mean(etaHS); piHS    # udzial przekroczen
 
 
-### bardzo du¿a liczba przekroczeñ i wysoki udzia³ przekroczeñ, wiêkszy od 0.05 --> metoda jest nieistotna (zob. metodê œwiatel, tzn. Jakie liczby przekroczeñ daj¹ podstawy do odrzucenia modelu dla N = 250 i ro = 5%)
-#metoda œwiate³ 
+### bardzo duÂ¿a liczba przekroczeÃ± i wysoki udziaÂ³ przekroczeÃ±, wiÃªkszy od 0.05 --> metoda jest nieistotna (zob. metodÃª Å“wiatel, tzn. Jakie liczby przekroczeÃ± dajÂ¹ podstawy do odrzucenia modelu dla N = 250 i ro = 5%)
+#metoda Å“wiateÂ³ 
 #dla n=250, p=1% zielona od 0 do 4, zolta od 5 do 9, czerwona 10+
 #dla n=250, p=5% zielona od 0-16, zolta 17-24, czerwona 25+
 #dla n=100, p=5% zielona od 0-7, zolta 8-12, czerwona 13+
@@ -311,14 +311,14 @@ eta = etaHS
 pi  = piHS
 n1  = nHS
 #empEx <- rollapply(eta, width=250, mean, align="right")
-# Test Kupca - pokrycie - zgodnoœæ udzia³u przekroczeñ z poziomem tolerancji
+# Test Kupca - pokrycie - zgodnoÅ“Ã¦ udziaÂ³u przekroczeÃ± z poziomem tolerancji
 n  <- length(eta); n
 n1 <- sum(eta);    n1
 n0 <- n - n1;      n0
 pi <- n1/n;        pi
 kupiec_temp_HS <- VaRTest(alpha=p, actual=rrHS, VaR=var)
 paste0("Statystyka testu Kupca: ", round(kupiec_temp_HS$uc.LRstat,3),"; p-value:", round(kupiec_temp_HS$uc.LRp,3))
-### p-value<0.05 --> odrzucamy hipotezê zerow¹ o zgodnoœci udzia³u przekroczeñ
+### p-value<0.05 --> odrzucamy hipotezÃª zerowÂ¹ o zgodnoÅ“ci udziaÂ³u przekroczeÃ±
 # Test Ch1
 eta1 <- coredata(eta[-length(eta)]) #1/0 jest przekroczenie/nie ma
 eta0 <- coredata(eta[-1])
@@ -336,12 +336,12 @@ pihs  = (n01+n11) / (n00+n01+n10+n11)
 c(pi0HS, pi1HS, pihs)
 christ1_temp_HS <- VaRTest(alpha=p, actual=coredata(rrHS), VaR=coredata(var))
 paste0("Statystyka testu Ch1: ", round(christ1_temp_HS$cc.LRstat,3),"; p-value:", round(christ1_temp_HS$cc.LRp,3))
-# Test Christoffersena 2 (niezale¿nego pokrycia) -  niezale¿noœæ + pokrycie 
+# Test Christoffersena 2 (niezaleÂ¿nego pokrycia) -  niezaleÂ¿noÅ“Ã¦ + pokrycie 
 christ2_temp_HS <- VaRTest(alpha=p, actual=coredata(rrHS), VaR=coredata(var))
 paste0("Statystyka testu Ch2: ", round(christ2_temp_HS$cc.LRstat,3),"; p-value:", round(christ2_temp_HS$cc.LRp,3))
 #p-value<0.05 -->
-#odrzucamy hipotezê zerow¹ o tym, ¿e przekroczenie VaR w okresie t nie zale¿y od przekroczenia VaR w okresie t-1 i jest równe poziomowi tolerancji
-#Test McNeila-Freya - czy odleg³oœci przekroczeñ od ES istotnie ró¿ni siê od 0
+#odrzucamy hipotezÃª zerowÂ¹ o tym, Â¿e przekroczenie VaR w okresie t nie zaleÂ¿y od przekroczenia VaR w okresie t-1 i jest rÃ³wne poziomowi tolerancji
+#Test McNeila-Freya - czy odlegÂ³oÅ“ci przekroczeÃ± od ES istotnie rÃ³Â¿ni siÃª od 0
 Neil_Frey_temp_HS <- ESTest(alpha=p, actual=coredata(rrHS), ES=coredata(esHS), VaR=coredata(varHS))
 paste0("p-value:", round(Neil_Frey_temp_HS$p.value,3))
 
@@ -393,10 +393,10 @@ paste0("Statystyka testu Ch1: ", round(christ1_temp_HS$cc.LRstat,3),"; p-value:"
 
 christ2_temp_CF <- VaRTest(alpha=p, actual=coredata(rrCF), VaR=coredata(var))
 paste0("Statystyka testu Ch2: ", round(christ2_temp_CF$cc.LRstat,3),"; p-value:", round(christ2_temp_CF$cc.LRp,3))
-#brak testu Neila-Freya dla CF, poniewa¿ nie da siê obliczyæ ES 
+#brak testu Neila-Freya dla CF, poniewaÂ¿ nie da siÃª obliczyÃ¦ ES 
 
 #EWMA
-### Zdecydowaliœmy na wybór EWMA, bo poprzednim razem (dla koñcowego okresu w lutym) wypad³a ta metoda lepiej
+### ZdecydowaliÅ“my na wybÃ³r EWMA, bo poprzednim razem (dla koÃ±cowego okresu w lutym) wypadÂ³a ta metoda lepiej
 lambda = 0.94
 EWMAspec <- ugarchspec(mean.model=list(armaOrder=c(0,0), include.mean=FALSE),
                        variance.model=list(model="iGARCH", garchOrder=c(1,1)),
@@ -471,7 +471,7 @@ summary <- cbind(summary_HS, summary_CF, summary_EWMA)
 colnames(summary) <- c("HS", "CF", "EWMA")
 rownames(summary) <- c("p0", "pi1", "pi", "test Kupca", "test Christoffersena 2", "test McNeila i Freya dla ES")
 (summary)
-#patrz¹c na tabelê, wybieramy najlepsz¹ metodê
+#patrzÂ¹c na tabelÃª, wybieramy najlepszÂ¹ metodÃª
 ESVaRplot(alpha=p, actual=rrEWMA, VaR=varEWMA, ES=esEWMA); title(main="Model EWMA")
 
 VaRplot(alpha=p, actual=tail(rrCF,backN), VaR=tail(varCF,backN))
@@ -480,7 +480,7 @@ title(main="Rozszerzenie Cornischa-Fischera: przekroczenia VaR")
 VaRplot(alpha=p, actual=tail(rrHS,backN), VaR=tail(varHS,backN))
 title(main="Symulacja historyczna: przekroczenia VaR")
 
-### zale¿y od okresu - dla wyników koniec-luty, HS i CF radz¹ sobie lepiej (przyczyna - wojna i jeszcze bardziej podwy¿szona zmiennoœæ)
+### zaleÂ¿y od okresu - dla wynikÃ³w koniec-luty, HS i CF radzÂ¹ sobie lepiej (przyczyna - wojna i jeszcze bardziej podwyÂ¿szona zmiennoÅ“Ã¦)
 
 
 
