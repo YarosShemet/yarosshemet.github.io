@@ -7,9 +7,6 @@
 ## http://bossa.pl/pub/fundinwest/mstock/mstfun.lst
 require(zoo)
 
-# setwd(".") # ustaw sciezke katalogu roboczego
-#fund <- "IPO083.mst" #Bogdana
-#fund <- "PKO026.mst" #Sani
 fund     <- "DWS002.mst" # wpisz nazwe funduszu
 raw.data <- read.csv2(file = fund, head=TRUE, sep=",", dec=".")
 head(raw.data)
