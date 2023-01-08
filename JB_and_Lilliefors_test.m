@@ -1,9 +1,9 @@
-%Yaraslau Shemet ex.1
+%Descriptives and Jarque-Bera test
 clc;
 clear all;
-[daily_returns] = xlsread("Domowe\Apple_daily_prices.xlsx", 'F2:F9636'); %wczytuje dane 
-[weekly_returns] = xlsread("Domowe\Apple_weekly_prices.xlsx", 'F2:F1998');
-[monthly_returns] = xlsread("Domowe\Apple_monthly_prices.xlsx", 'F2:F462');
+[daily_returns] = xlsread("Apple_daily_prices.xlsx", 'F2:F9636'); %wczytuje dane 
+[weekly_returns] = xlsread("Apple_weekly_prices.xlsx", 'F2:F1998');
+[monthly_returns] = xlsread("Apple_monthly_prices.xlsx", 'F2:F462');
 logreturns_daily = log(daily_returns(2:end,:))-log(daily_returns(1:end-1,:)); %transformuje do logarytmicznych stop
 logreturns_weekly = log(weekly_returns(2:end,:))-log(weekly_returns(1:end-1,:));
 logreturns_monthly = log(monthly_returns(2:end,:))-log(monthly_returns(1:end-1,:));
@@ -16,8 +16,7 @@ for i=1:3 %petla gdzie dla kazdego szeregu czasowego beda wyliczane statystyki
     desc_stat(2,i) = std(logreturns{i}); %odchylenie standardowe
     desc_stat(3,i) = skewness(logreturns{i}); %skosnosc
     desc_stat(4,i) = kurtosis(logreturns{i}); %kurtoza
-    [desc_stat(5,i) desc_stat(6,i)] = jbtest1(logreturns{i}); %statystyka JB-testu i p-value JB-testu
-    %korzystam z funkcji podanej na zajeciach
+    [desc_stat(5,i) desc_stat(6,i)] = jbtest(logreturns{i}); %statystyka JB-testu i p-value JB-testu
 end;
 %wyswietlanie wynikow
 disp('Descriptive statistics for the Apple stock returns')
@@ -43,7 +42,7 @@ end;
 %wiec odrzucam H0 na rzecz H1, mowiaca ze skladnik losowy 
 %nie ma rozkladu normalnego (S~=0 ^ K~=3)
 %--------------------------------------------------------------------------
-%Yaraslau Shemet ex.2
+Lilliefors test
 clc;
 clear all;
 [daily_returns] = xlsread("Domowe\Apple_daily_prices.xlsx", 'F2:F9636'); %wczytuje dane
