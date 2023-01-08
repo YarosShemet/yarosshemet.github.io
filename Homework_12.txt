@@ -1,0 +1,24 @@
+CREATE TABLE address (
+id number CONSTRAINT ad_id_un UNIQUE,
+country VARCHAR(25),
+city VARCHAR(15)
+);
+
+CREATE TABLE friends (
+id number,
+name VARCHAR(15),
+email VARCHAR(25),
+address_id number constraint ad_id_fk references address(id) ON DELETE SET NULL,
+birthday VARCHAR(25),
+CHECK (LENGTH(name)>3)
+);
+
+drop table friends;
+
+CREATE UNIQUE INDEX un_id_id ON friends (id);
+
+ALTER TABLE friends ADD CONSTRAINT fr_id_pk PRIMARY KEY (id); 
+
+CREATE INDEX fr_email_in ON friends (email);
+
+ALTER TABLE friends MODIFY (email CONSTRAINT fr_email_nn NOT NULL); 

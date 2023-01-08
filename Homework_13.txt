@@ -1,0 +1,9 @@
+CREATE TABLE test200 (id integer, name1 varchar(15), name2 varchar(15),
+address1 varchar(15), address2 varchar(15)); 
+
+update test200 set &column = &newvalue where id=&id;
+
+select * from test200 where name1 = '&&findname1' AND name2 = '&findname1' AND address1 = '&&findname2' AND address2 = '&findname2';
+
+undefine findname1; --/nie wolno używać przecinka 
+undefine findname2;

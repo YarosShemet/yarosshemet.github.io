@@ -1,0 +1,35 @@
+CREATE TABLE friends AS (select employee_id id, first_name name, last_name surname from hr.employees where commission_pct is not null);
+
+ALTER TABLE friends ADD email varchar2(15);
+
+ALTER TABLE friends MODIFY email DEFAULT 'no email';
+
+INSERT INTO friends (id, name, surname) VALUES (180, 'Alex', 'Mazur');
+
+ALTER TABLE friends RENAME COLUMN id TO friends_id;
+
+DROP TABLE friends;
+
+CREATE TABLE friends (id integer, name varchar2(15), surname varchar2(15), email varchar2(15), salary number(7, 2) DEFAULT 1000, city varchar2(15), birthday date DEFAULT SYSDATE);
+
+INSERT INTO friends (id, name, surname, email, salary, city) VALUES (1, 'Rick', 'Morty', 'rickmorty.com', 5000, 'Denver');
+
+commit;
+
+ALTER TABLE friends DROP COLUMN salary;
+
+ALTER TABLE friends SET UNUSED COLUMN email;
+
+ALTER TABLE friends DROP UNUSED COLUMNS;
+
+ALTER TABLE friends READ ONLY;
+
+rollback;
+
+UPDATE friends SET birthday=TO_DATE(14-MAY-1998);
+
+TRUNCATE TABLE friends;
+
+DROP TABLE friends;
+
+select * from friends;

@@ -1,0 +1,33 @@
+SELECT TO_CHAR(manager_id) man_id, to_char(null) job_id, to_char(null) dep_id, SUM(salary) from hr.employees
+group by manager_id 
+UNION
+SELECT to_char(null), job_id, to_char(null), SUM(salary) from hr.employees
+group by job_id
+UNION
+SELECT to_char(null), to_char(null), TO_CHAR(department_id) dep_id, SUM(salary) from hr.employees
+group by department_id;
+
+select department_id, department_name from hr.employees emp JOIN hr.departments USING (department_id)
+where emp.manager_id = 100
+MINUS
+select department_id, department_name from hr.employees emp JOIN hr.departments USING (department_id)
+where emp.manager_id IN (145, 201);
+
+select distinct first_name, last_name, salary from hr.employees
+where first_name like '_a%'
+INTERSECT
+select distinct first_name, last_name, salary from hr.employees
+where LOWER(last_name) LIKE '%s%'
+ORDER BY salary DESC;
+
+select location_id, postal_code, city from hr.locations
+where country_id IN ('IT', 'DE')
+UNION
+select location_id, postal_code, city from hr.locations
+where postal_code LIKE '%9%';
+
+select country_id, country_name, region_name from hr.countries JOIN hr.regions USING (region_id)
+where LENGTH(country_name) > 8
+UNION 
+select country_id, country_name, region_name from hr.countries JOIN hr.regions USING (region_id)
+WHERE region_id != 1;
