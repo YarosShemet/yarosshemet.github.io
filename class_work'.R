@@ -27,7 +27,6 @@ ggplot(iris, aes(Sepal.Length)) + geom_histogram(aes(col = Species))
 ggplot(iris, aes(Sepal.Length)) + geom_histogram(aes(fill = Species))
 ggplot(iris, aes(Sepal.Length, fill = Species)) + geom_histogram()
 
-#https://stepik.org/lesson/11787/step/8?unit=2671
 ggplot(iris, aes(Sepal.Length, Sepal.Width, col = Species, size=Petal.Length)) +
   geom_point()
 
@@ -109,7 +108,7 @@ data <- subset(ToothGrowth, )
 t_test <- t.test(len ~ supp, data_hw)       #dla niezależnych prób
 t_stat <- t_test$statistic
 
-mydata <- read.csv("D:/Programowanie/R_projekty/Stepik/lekarstva.csv")
+mydata <- read.csv()
 print(t.test(mydata$Pressure_before, mydata$Pressure_after, paired = T)$statistic)    #dla zależnych prób
 
 ggplot(data, aes(Species, Sepal.Length))+
@@ -118,14 +117,14 @@ ggplot(data, aes(Species, Sepal.Length))+
 ggplot(data, aes(Species, Sepal.Length))+
   stat_summary(fun.data = mean_cl_normal, geom="pointrange")
 
-final_data <- read.table("D:/Programowanie/R_projekty/Stepik/dataset_11504_15 (1).txt")
+final_data <- read.table()
 if (bartlett.test(V1 ~ V2, final_data)$p.value < 0.05){
   print(wilcox.test(V1 ~ V2, final_data, var.equal = T)$p.value)
 } else {
   print(t.test(V1 ~ V2, final_data, var.equal = T)$p.value)
 } 
 
-final_data <- read.table("D:/Programowanie/R_projekty/Stepik/dataset_11504_16.txt")
+final_data <- read.table()
 if (t.test(final_data$V1, final_data$V2, paired = T)$p.value < 0.05){
   print(mean(final_data$V1), mean(final_data$V2), t.test(data$V1, data$V2, paired = T)$p.value)
 } else {
@@ -147,7 +146,7 @@ anova_iris <- aov(Sepal.Width ~ Species, data = iris)
 TukeyHSD(anova_iris)
 
 
-new_data <- read.csv("D:/Programowanie/R_projekty/Stepik/Pillulkin.csv")
+new_data <- read.csv()
 new_data$patient <- as.factor(new_data$patient)
 str(new_data)
 fit_one_factor <- aov(temperature ~ pill + Error(patient/pill), data = new_data)
